@@ -16,7 +16,7 @@ def post_to_linkedin(message: str):
     company_id = "111488296"  # replace with your actual LinkedIn company page ID
 
     payload = {
-        "author": f"urn:li:organization:{company_id}",
+        "author = "urn:li:person:me",
         "lifecycleState": "PUBLISHED",
         "specificContent": {
             "com.linkedin.ugc.ShareContent": {
