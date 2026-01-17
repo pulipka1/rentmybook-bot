@@ -3,6 +3,7 @@ import os
 import requests
 
 def post_to_linkedin(message: str):
+    # Get your LinkedIn access token from GitHub Secrets
     access_token = os.getenv("LINKEDIN_TOKEN")
 
     url = "https://api.linkedin.com/v2/ugcPosts"
@@ -12,11 +13,11 @@ def post_to_linkedin(message: str):
         "Content-Type": "application/json"
     }
 
-    # 🔹 Add your company ID here
-    company_id = "111488296"  # replace with your actual LinkedIn company page ID
+    # 🔹 Posting as yourself (personal profile)
+    author = "urn:li:person:me"
 
     payload = {
-        "author = "urn:li:person:me",
+        "author": author,
         "lifecycleState": "PUBLISHED",
         "specificContent": {
             "com.linkedin.ugc.ShareContent": {
@@ -31,10 +32,14 @@ def post_to_linkedin(message: str):
 
     response = requests.post(url, headers=headers, json=payload)
 
+    # 🔍 Debug logging
+    print("🔍 Status Code:", response.status_code)
+    print("🔍 Response Text:", response.text)
+
     if response.status_code == 201:
         print("✅ LinkedIn post successful!")
     else:
-        print("❌ LinkedIn post failed:", response.status_code, response.text)
+        print("❌ LinkedIn post failed")
 
 def run_bot():
     today = datetime.date.today().strftime("%Y-%m-%d")
